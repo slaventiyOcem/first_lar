@@ -3,7 +3,7 @@
 @section('content')
     <h2>All tasks</h2>
     @include('common.errors')
-    <form action="/tasks" method="post">
+    <form action="{{route('tasks.store')}}" method="post">
         {{ csrf_field() }}
         <label for="#"> name:
             <input type="text" name="name" value="{{ old('name') }}">

@@ -19,18 +19,19 @@ Route::get('/', function () {
 
 Route::get('/tasks',function (){
     return view('tasks.index');
-});
+})->name('tasks.index');
+
 Route::post('/tasks',function (Request $request ){
     $validator = Validator::make($request->all(), [
         'name'=>'required|max:5'
     ]);
     if ($validator->fails()){
-        return redirect('/tasks')
+        return redirect(route('tasks.index'))
             ->withInput()
             ->withErrors($validator);
     }
     $task = new Task();
     $task->name = $request->name;
     $task->save();
-    return redirect('/tasks');
-});
+    return redirect(route('tasks.index'));
+})->name('tasks.store') ;
