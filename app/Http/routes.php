@@ -18,7 +18,8 @@ Route::get('/', function () {
 });
 
 Route::get('/tasks',function (){
-    return view('tasks.index');
+    $tasks = Task::all();
+    return view('tasks.index',['tasks'=>$tasks,]);
 })->name('tasks.index');
 
 Route::post('/tasks',function (Request $request ){
@@ -34,4 +35,9 @@ Route::post('/tasks',function (Request $request ){
     $task->name = $request->name;
     $task->save();
     return redirect(route('tasks.index'));
-})->name('tasks.store') ;
+})->name('tasks.store');
+
+Route::delete('/tasks/{task}', function (Task $task){
+    $task->delete();
+    return redirect(route('tasks.index'));
+})->name('tasks.destroy');
